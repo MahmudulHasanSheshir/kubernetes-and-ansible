@@ -44,7 +44,7 @@
           exclude=kubelet kubeadm kubectl
     - name: Make cache of repolist
       shell: |
-        
+        sudo dnf makecache
 
     - name: Installing required packages
       dnf:
