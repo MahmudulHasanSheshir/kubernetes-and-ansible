@@ -47,6 +47,7 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ packages }}"
+      disable_excludes: kubernetes
 
   - name: Starting and Enabling the required services
     service:
