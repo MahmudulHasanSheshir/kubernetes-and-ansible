@@ -41,12 +41,17 @@
           repo_gpgcheck=1
           gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
           https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+          exclude=kubelet kubeadm kubectl
+    - name: Make cache of repolist
+      shell: |
+        
 
     - name: Installing required packages
       dnf:
         name: "{{ item }}"
         state: present
       with_items: "{{ packages }}"
+      disable_excludes: kubernetes
 
     - name: Starting and Enabling the required services
       service:
