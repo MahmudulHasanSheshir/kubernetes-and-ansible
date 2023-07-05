@@ -1,5 +1,5 @@
 ---
-- hosts: kubernetes-master-nodes
+- hosts: kubemaster
   vars_files:
   - env_variables 
   tasks:
@@ -7,7 +7,7 @@
     shell: kubeadm config images pull
 
   - name: Initializing Kubernetes cluster
-    shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}}
+    shell: kubeadm init --control-plane-endpoint=kubeplane.localdomain --pod-network-cidr=10.10.0.0/16 --cri-socket=unix:///run/containerd/containerd.sock
     register: output
 
   - name: Storing Logs and Generated token for future purpose.
@@ -20,5 +20,5 @@
      sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
   - name: Install Network Add-on
-    command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
 
