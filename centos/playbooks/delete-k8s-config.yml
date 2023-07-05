@@ -3,7 +3,6 @@
 
   vars:
    packages:
-   - docker*
    - kubeadm
    - kubectl
    - kubelet
